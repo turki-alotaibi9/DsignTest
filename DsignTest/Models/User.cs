@@ -11,7 +11,8 @@ namespace DsignTest.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,11 +21,16 @@ namespace DsignTest.Models
             this.Comments = new HashSet<Comment>();
             this.Posts = new HashSet<Post>();
         }
-    
+
+      
+
         public int Id { get; set; }
+        [Required(ErrorMessage = "User Name Is Required")]
         public string UserName { get; set; }
+        [Required(ErrorMessage = "Email Is Required")]
         public string Email { get; set; }
-        
+
+        [Required(ErrorMessage = "Password Is Required")]
         public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
