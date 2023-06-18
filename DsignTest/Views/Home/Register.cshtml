@@ -20,7 +20,7 @@
     <link href="@Url.Content("/Content/Login.css")" rel="stylesheet" />
     <title>Register</title>
 </head>
-<body>
+
   
 
 
@@ -55,7 +55,7 @@
                     </div>
                     <div class="d-flex align-items-start">
                     </div> <button class="btn btn-block text-center my-3">Create Account</button>
-                    <div class="text-center pt-3 text-muted">I have account  : <a href="#">Login</a></div>
+                           <div class="text-center pt-3 text-muted">I have account  : @Html.ActionLink("LogIn", "LoginPage","Home")</div>
                 </form>
             </div>
             <script type='text/javascript'></script>

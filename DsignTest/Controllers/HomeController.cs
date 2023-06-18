@@ -11,9 +11,10 @@ namespace DsignTest.Controllers
     {
 
 
-      SDM_projectEntities db = new SDM_projectEntities();
-           
-        
+        SDM_projectEntities db = new SDM_projectEntities();
+
+
+
         public ActionResult LoginPage()
         {
             return View("LoginPage");
@@ -24,27 +25,47 @@ namespace DsignTest.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LoginPage(User user)
         {
-            //To check if user data exists or not
+            // Check if the user exists in the database.
+            var userInDb = db.Users.SingleOrDefault(u => u.Email == user.Email && u.Password == user.Password);
+            // To check User status Enable Or Disable
+            var userStatus = db.Users.SingleOrDefault(u => u.Status == "Enable");
+            // to check user Role
+            var userRole = db.Users.SingleOrDefault(u => u.Role == "Admin");
 
+            if (user != null)
+            {
+
+                if (userInDb != null)
+                {
+                    // If the user exists, log them in and redirect them to the posts page.
+                    if (userStatus == null)
+                    {
+                        // Set the user's ID and username in the session.
+                        Session["Id"] = userInDb.Id;
+                        Session["UserName"] = userInDb.UserName;
+
+                        // Redirect the user to the posts page.
+                        return RedirectToAction("ShowPosts", "Posts");
+                    }
+                    else
+                    {
+
+                        ViewBag.Message = "Your Account Is Disable ";
+                        return View("LoginPage");
+                    }
+                }
+
+            }
+           
+               
+              //  ViewBag.Message = "Please enter the p";
+                return View("LoginPage");
+            
           
-                var logInInfo = db.Users.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
-                if (logInInfo != null)
-                {
-                    Session["Id"] = user.Id.ToString();
-                    Session["UserName"] = user.UserName.ToString();
-                    return RedirectToAction("ShowPosts", "Posts");
-                }
-                // if user data not exists
-                else
-                {
-                    ViewBag.Mess = "Verify your password or email";
-                    return View();
-                }
-            
-            
+
         }
 
-        
+
         public ActionResult Register()
         {
 
@@ -75,7 +96,9 @@ namespace DsignTest.Controllers
                     ViewBag.Message = "Email already exists";
                     return View();
                 }
-
+                Session["Id"] = user.Id.ToString();
+                Session["UserName"] = user.UserName.ToString();
+                Session["Email"] = user.UserName.ToString();
                 db.Users.Add(user);
                 db.SaveChanges();
                  ViewBag.Message = "Acount Created";

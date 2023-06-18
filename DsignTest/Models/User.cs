@@ -21,17 +21,21 @@ namespace DsignTest.Models
             this.Comments = new HashSet<Comment>();
             this.Posts = new HashSet<Post>();
         }
-
-      
-
+    
         public int Id { get; set; }
-        [Required(ErrorMessage = "User Name Is Required")]
+
+        [Required(ErrorMessage = "User Name is Required")]
         public string UserName { get; set; }
-        [Required(ErrorMessage = "Email Is Required")]
+
+        [Required(ErrorMessage = "Email is Required")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password Is Required")]
+        [Required(ErrorMessage = "Password is Required")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+        public string Status { get; set; }
+        public string Role { get; set; }
+        public string CreateAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

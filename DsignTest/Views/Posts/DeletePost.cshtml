@@ -1,0 +1,119 @@
+﻿@model DsignTest.Models.Post
+
+@{
+    ViewBag.Title = "DeletePost";
+
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="@Url.Content("/Content/showPosts.css")" rel="stylesheet" />
+    <title>ShowPosts</title>
+</head>
+<body>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="content" class="content content-full-width">
+                        <!-- begin profile -->
+                        <div class="profile">
+                            <div class="profile-header">
+                                <!-- BEGIN profile-header-cover -->
+                                <div class="profile-header-cover"></div>
+                                <!-- END profile-header-cover -->
+                                <!-- BEGIN profile-header-content -->
+                                <div class="profile-header-content">
+                                    <!-- BEGIN profile-header-img -->
+                                    <div class="profile-header-img">
+                                        <img src="https://png.pngtree.com/png-vector/20220901/ourmid/pngtree-company-employee-avatar-icon-wearing-a-suit-png-image_6133899.png" alt="">
+                                    </div>
+                                    <!-- END profile-header-img -->
+                                    <!-- BEGIN profile-header-info -->
+                                    <div class="profile-header-info">
+                                        <h4 class="m-t-10 m-b-5">@Session["UserName"]</h4>
+
+                                        <p class="m-b-10"></p>
+                                    </div>
+                                    <!-- END profile-header-info -->
+                                </div>
+                                <!-- END profile-header-content -->
+                                <!-- BEGIN profile-header-tab -->
+                                <ul class="profile-header-tab nav nav-tabs">
+                                    <li class="nav-item">@Html.ActionLink("My Account", "UserAccount", "Home")</li>
+                                    <li class="nav-item">@Html.ActionLink("My Posts", "MyPosts", "Posts", new { id = Session["Id"] }, null)</li>
+                                    <li class="nav-item">@Html.ActionLink("Posts", "ShowPosts", "Posts")</li>
+                                    <li class="nav-item">@Html.ActionLink("Create New Post", "CreatePosts", "Posts")</li>
+                                </ul>
+                                <!-- END profile-header-tab -->
+                            </div>
+                        </div>
+                        <!-- end profile -->
+                        <!-- begin profile-content -->
+                        <!-- end profile-content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Post</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreatedAt)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.UserName)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "ShowPosts")
+            </div>
+        }
+    </div>
+
+
+</body>
+  

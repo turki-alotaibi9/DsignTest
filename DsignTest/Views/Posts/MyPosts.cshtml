@@ -26,10 +26,11 @@
             margin: 4px 2px;
             cursor: pointer;
         }
+
         button {
             background-color: #008CBA;
         }
-    </style>
+    </style>    
 </head>
 <body>
     <div class="container">
@@ -61,7 +62,7 @@
                             <!-- BEGIN profile-header-tab -->
                             <ul class="profile-header-tab nav nav-tabs">
                                 <li class="nav-item">@Html.ActionLink("My Account", "UserAccount", "Home")</li>
-                                <li class="nav-item">@Html.ActionLink("My Posts", "MyPosts", "Posts", new { id = Session["Id"] }, null)</li>
+                                <li class="nav-item">@Html.ActionLink("My Posts", "MyPosts", "Posts")</li>
                                 <li class="nav-item">@Html.ActionLink("Posts", "ShowPosts", "Posts")</li>
                                 <li class="nav-item">@Html.ActionLink("Create New Post", "CreatePosts", "Posts")</li>
                             </ul>
@@ -87,60 +88,63 @@
                                     <!-- begin timeline-body -->
                                     <!-- end timeline-body -->
 
-                                    @foreach (var item in Model)
+                                    @if (Model != null)
                                     {
 
+                                        foreach (var item in Model)
+                                        {
 
-                                        <div class="timeline-body">
-                                            <div class="timeline-header">
-                                                <span class="userimage"><img src="https://png.pngtree.com/png-vector/20220901/ourmid/pngtree-company-employee-avatar-icon-wearing-a-suit-png-image_6133899.png" alt=""></span>
-                                                <span class="username"><a href="javascript:;"> @Html.DisplayFor(modelItem => item.User.UserName)</a> <small></small></span>
 
-                                            </div>
-                                            <div class="timeline-content">
-                                                <h1>
-                                                    @Html.DisplayFor(modelItem => item.Title)
-                                                </h1>
-                                                <h2>
-                                                    @Html.DisplayFor(modelItem => item.Description)
-                                                </h2>
-                                                <p>
-                                                    @Html.DisplayFor(modelItem => item.CreatedAt)
-                                                </p>
-                                            </div>
+                                            <div class="timeline-body">
+                                                <div class="timeline-header">
+                                                    <span class="userimage"><img src="https://png.pngtree.com/png-vector/20220901/ourmid/pngtree-company-employee-avatar-icon-wearing-a-suit-png-image_6133899.png" alt=""></span>
+                                                    <span class="username"><a href="javascript:;"> @Html.DisplayFor(modelItem => item.User.UserName)</a> <small></small></span>
 
-                                            <div class="timeline-footer">
-                                                @if (item.Comments.Count() > 0)
-                                                {
-                                                    @Html.ActionLink("Show Comments", "ShowComments", "Comment", new { id = item.Id }, null)
+                                                </div>
+                                                <div class="timeline-content">
+                                                    <h1>
+                                                        @Html.DisplayFor(modelItem => item.Title)
+                                                    </h1>
+                                                    <h2>
+                                                        @Html.DisplayFor(modelItem => item.Description)
+                                                    </h2>
+                                                    <p>
+                                                        @Html.DisplayFor(modelItem => item.CreatedAt)
+                                                    </p>
+                                                </div>
 
-                                                }
-                                                else
-                                                {
-                                                    <h4>No Comment</h4>
-                                                }
-                                              
+                                                <div class="timeline-footer">
+                                                    @if (item.Comments.Count() > 0)
+                                                    {
+                                                        @Html.ActionLink("Show Comments", "ShowComments", "Comment", new { id = item.Id }, null)
 
-                                            </div>
-                                            <div class="timeline-comment-box">
-                                                <div class="input">
-                                                    <form action="">
-                                                        <div class="input-group">
+                                                    }
+                                                    else
+                                                    {
+                                                        <h4>No Comment</h4>
+                                                    }
 
-                                                            <textarea class="form-control" id="exampleFormControlTextarea1" cols="90" rows="6"></textarea><br />
+                                                    @Html.ActionLink("Delete", "DeletePost", "Posts", new { id = item.Id }, null)
+                                                </div>
+                                                <div class="timeline-comment-box">
+                                                    <div class="input">
+                                                        <form action="">
+                                                            <div class="input-group">
 
-                                                            <button type="button" class="btn btn-success">Comment</button>
+                                                                <textarea class="form-control" id="exampleFormControlTextarea1" cols="90" rows="6"></textarea><br />
 
-                                                        </div>
-                                                    </form>
+                                                                <button type="button" class="btn btn-primary">Comment</button>
+
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
 
 
+                                        }
                                     }
-
 
 
                                 </ul>
